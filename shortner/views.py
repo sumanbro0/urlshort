@@ -2,13 +2,15 @@ import json
 from django.shortcuts import render, redirect
 import uuid
 from .models import Url
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def index(request):
     return render(request, "index.html")
 
 
+@csrf_exempt
 def create(request):
     if request.body:
         link = json.loads(request.body.decode("utf-8"))
