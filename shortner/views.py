@@ -1,7 +1,8 @@
+import json
 from django.shortcuts import render, redirect
 import uuid
 from .models import Url
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 # Create your views here.
 def index(request):
@@ -9,11 +10,12 @@ def index(request):
 
 
 def create(request):
-    if request.method == "POST":
-        link = request.POST["link"]
+    if request.body:
+        link = json.loads(request.body.decode("utf-8"))
         uid = str(uuid.uuid4())[:5]
         new_url = Url(link=link, uuid=uid)
         new_url.save()
+        print(uid)
         return HttpResponse(uid)
 
 

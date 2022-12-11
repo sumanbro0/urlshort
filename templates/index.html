@@ -93,16 +93,18 @@
 <script type="text/javascript">
     $(document).on('submit', '#post-form', function (e) {
         e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: "{% url 'create' %}",
-            data: {
-                link: $('#link').val(),
-                csrfmiddlewaretoken: '{{ csrf_token }}'
-            },
-            success: function (data) {
-                $('h2').html(window.location + data)
+        fetch('{% url "create" %}', {
+            method: "POST",
+            body: JSON.stringify($('#link').val(),),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                "X-CSRFToken": '{{csrf_token}}'
+
             }
-        });
+        }).then(function (data) {
+            data.text().then(text => $('h2').html(`${window.location.origin}/${text}`));
+
+        })
+
     });
 </script>
