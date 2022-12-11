@@ -99,12 +99,11 @@
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
                 "X-CSRFToken": '{{csrf_token}}'
-
-            }
+            },
+            credentials: 'same-origin',
         }).then(function (data) {
             data.text().then(text => $('h2').html(`${window.location.origin}/${text}`));
 
         })
-
     });
 </script>
