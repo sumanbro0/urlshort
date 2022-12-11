@@ -91,6 +91,7 @@
 </main>
 
 <script type="text/javascript">
+    let csrftoken = getCookie('csrftoken');
     $(document).on('submit', '#post-form', function (e) {
         e.preventDefault();
         fetch('{% url "create" %}', {
@@ -98,7 +99,7 @@
             body: JSON.stringify($('#link').val(),),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
-                "X-CSRFToken": '{{csrf_token}}'
+                "X-CSRFToken": csrftoken
             },
             credentials: 'same-origin',
         }).then(function (data) {
