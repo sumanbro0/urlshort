@@ -93,23 +93,22 @@
 <script type="text/javascript">
     $(document).on('submit', '#post-form', function (e) {
         e.preventDefault();
-        let csrftoken = Cookies.get('csrftoken');
-        // let csrftoken = getCookie('csrftoken');
-        // function getCookie(name) {
-        //     var cookieValue = null;
-        //     if (document.cookie && document.cookie !== '') {
-        //         var cookies = document.cookie.split(';');
-        //         for (var i = 0; i < cookies.length; i++) {
-        //             var cookie = cookies[i].trim();
-        //             // Does this cookie string begin with the name we want?
-        //             if (cookie.substring(0, name.length + 1) === (name + '=')) {
-        //                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        //                 break;
-        //             }
-        //         }
-        //     }
-        //     return cookieValue;
-        // }
+        let csrftoken = getCookie('csrftoken');
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
         fetch('{% url "create" %}', {
             method: "POST",
             body: JSON.stringify($('#link').val(),),
