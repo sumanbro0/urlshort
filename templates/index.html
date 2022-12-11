@@ -98,7 +98,7 @@
             url: "{% url 'create' %}",
             data: {
                 link: $('#link').val(),
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                csrfmiddlewaretoken: '{{ csrf_token }}'
             },
             success: function (data) {
                 $('h2').html(window.location + data)
